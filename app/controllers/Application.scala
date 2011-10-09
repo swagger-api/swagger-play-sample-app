@@ -10,6 +10,6 @@ import views.Application.html
   */
 object Application extends Controller {
   def index = {
-    html.index("Your Scala application is ready!")
+    Redirect("/swagger-ui/")
   }
 }

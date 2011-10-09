@@ -1,7 +1,8 @@
 jQuery(function($) {
 
-   // this.baseUrl = "http://swagr.api.wordnik.com/v4";
-  //  this.apiKey = "my-api-key";
+  this.baseUrl = "http://localhost:9000/help";
+  this.apiKey = "no-api-key";
+  this.useFormatSuffix = true;
   
   var ApiSelectionController = Spine.Controller.create({
     proxied: ["showApi"],
@@ -120,7 +121,7 @@ jQuery(function($) {
         messageController.showMessage(msg);
         else
         messageController.showMessage("Fetching remote JSON...");
-      });
+      }, this.useFormatSuffix);
 
       // $("#api_host_url").html(swaggerService.apiHost());
       
