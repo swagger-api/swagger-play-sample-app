@@ -1,0 +1,32 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+
+# Pet Resource API
+GET     /pet/{petId}                            PetController.getPetById
+POST    /pet                                    PetController.addPet
+PUT     /pet                                    PetController.updatePet
+GET     /pet/findByStatus                       PetController.findPetsByStatus
+GET     /pet/findByTags                         PetController.findPetsByTags
+
+# PetStore Resource API
+GET     /order/{orderId}                        PetStoreController.getOrderById
+POST    /order                                  PetStoreController.placeOrder
+DELETE  /order/{orderId}                        PetStoreController.deleteOrder
+
+# User Resource API
+POST    /user                                   UserController.createUser
+PUT     /user/{username}                        UserController.updateUser
+DELETE  /user/{username}                        UserController.deleteUser
+GET     /user/{username}                        UserController.getUserByName
+GET     /user/login                             UserController.loginUser
+GET     /user/logout                            UserController.logoutUser
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public

@@ -1,0 +1,13 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> scala 0.9.1
+    - customModules -> swagger-play
+
+repositories:
+- playCustomModules:
+    type:       local
+    artifact:   "/Users/ayush/workspace/wordnik/swagger-play"
+    contains:
+        - customModules -> *
