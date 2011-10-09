@@ -33,15 +33,19 @@ play deps
 play run
 </pre>
 
-### To test
+### Take Swagger UI for a spin
+If you hit http://localhost:9000 you should see swagger-ui (https://github.com/wordnik/swagger-ui) come up for the sample app
+
+
+### Test API Listing directly
 Open a browser window and confirm you can see API listing by hitting the following URLs
 
 <li>- http://localhost:9000/help : A list of available resources
-	
+
 <li>- http://localhost:9000/help/user  : User Resource API and Models
-	
+
 <li>- http://localhost:9000/help/pet   : Pet Resource API and Models
-	
+
 <li>- http://localhost:9000/help/store : Store Resource API and Models
-	
-	
+
+
