@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                       staticDir:public/swagger-ui-1.0
 
 # Pet Resource API
 GET     /pet/{petId}                            PetController.getPetById
