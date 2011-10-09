@@ -35,8 +35,13 @@ play run
 
 ### To test
 Open a browser window and confirm you can see API listing by hitting the following URLs
+
 <li>- http://localhost:9000/help : A list of available resources
+	
 <li>- http://localhost:9000/help/user  : User Resource API and Models
+	
 <li>- http://localhost:9000/help/pet   : Pet Resource API and Models
+	
 <li>- http://localhost:9000/help/store : Store Resource API and Models
+	
 	
