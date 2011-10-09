@@ -8,6 +8,6 @@ require:
 repositories:
 - playCustomModules:
     type:       local
-    artifact:   "/Users/ayush/workspace/wordnik/swagger-play"
+    artifact:   "/path/to/swagger-play"
     contains:
         - customModules -> *
