@@ -2,25 +2,45 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Pet Resource API
-GET     /pet/{petId}                            PetController.getPetById
-POST    /pet                                    PetController.addPet
-PUT     /pet                                    PetController.updatePet
-GET     /pet/findByStatus                       PetController.findPetsByStatus
-GET     /pet/findByTags                         PetController.findPetsByTags
+# Pet Resource JSON API
+GET     /pet.json/{petId}                       PetController.getPetById
+POST    /pet.json                               PetController.addPet
+PUT     /pet.json                               PetController.updatePet
+GET     /pet.json/findByStatus                  PetController.findPetsByStatus
+GET     /pet.json/findByTags                    PetController.findPetsByTags
 
-# PetStore Resource API
-GET     /order/{orderId}                        PetStoreController.getOrderById
-POST    /order                                  PetStoreController.placeOrder
-DELETE  /order/{orderId}                        PetStoreController.deleteOrder
+# Pet Resource XML API
+GET     /pet.xml/{petId}                        PetController.getPetById
+POST    /pet.xml                                PetController.addPet
+PUT     /pet.xml                                PetController.updatePet
+GET     /pet.xml/findByStatus                   PetController.findPetsByStatus
+GET     /pet.xml/findByTags                     PetController.findPetsByTags
 
-# User Resource API
-POST    /user                                   UserController.createUser
-PUT     /user/{username}                        UserController.updateUser
-DELETE  /user/{username}                        UserController.deleteUser
-GET     /user/{username}                        UserController.getUserByName
-GET     /user/login                             UserController.loginUser
-GET     /user/logout                            UserController.logoutUser
+# PetStore Resource JSON API
+GET     /order.json/{orderId}                   PetStoreController.getOrderById
+POST    /order.json                             PetStoreController.placeOrder
+DELETE  /order.json/{orderId}                   PetStoreController.deleteOrder
+
+# PetStore Resource XML API
+GET     /order.xml/{orderId}                    PetStoreController.getOrderById
+POST    /order.xml                              PetStoreController.placeOrder
+DELETE  /order.xml/{orderId}                    PetStoreController.deleteOrder
+
+# User Resource JSON API
+POST    /user.json                              UserController.createUser
+PUT     /user.json/{username}                   UserController.updateUser
+DELETE  /user.json/{username}                   UserController.deleteUser
+GET     /user.json/{username}                   UserController.getUserByName
+GET     /user.json/login                        UserController.loginUser
+GET     /user.json/logout                       UserController.logoutUser
+
+# User Resource XML API
+POST    /user.xml                               UserController.createUser
+PUT     /user.xml/{username}                    UserController.updateUser
+DELETE  /user.xml/{username}                    UserController.deleteUser
+GET     /user.xml/{username}                    UserController.getUserByName
+GET     /user.xml/login                         UserController.loginUser
+GET     /user.xml/logout                        UserController.logoutUser
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

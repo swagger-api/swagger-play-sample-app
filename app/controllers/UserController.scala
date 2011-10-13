@@ -13,7 +13,7 @@ import com.wordnik.swagger.sample.model.User
   */
 
 @Api(value = "/user", description = "Operations about user")
-object UserController extends Controller {
+object UserController extends ApiController {
   private val userData = new UserData
   private val ru = new JavaRestResourceUtil
 
@@ -42,7 +42,7 @@ object UserController extends Controller {
   def getUserByName(@ApiParam(value = "The name that needs to be fetched. Use user1 for testing. ", required = true) username: String) = {
     val user: User = userData.findUserByName(username)
     if (null != user) {
-      Json(user)
+      if (returnXml) Xml(marshallToXml(user)) else Json(user)
     } else {
       NotFound
     }
@@ -51,7 +51,8 @@ object UserController extends Controller {
   @ApiOperation(value = "Logs user into the system", responseClass = "String")
   @ApiErrors(value = Array(new ApiError(code = 400, reason = "Invalid username/password supplied")))
   def loginUser(@ApiParam(value = "The user name for login", required = true) username: String, @ApiParam(value = "The password for login in clear text", required = true) password: String) = {
-    Json("logged in user session:" + System.currentTimeMillis)
+    var o = "logged in user session:" + System.currentTimeMillis
+    if (returnXml) Xml(marshallToXml(o)) else Json(o)
   }
 
   @ApiOperation(value = "Logs out current logged in user session")

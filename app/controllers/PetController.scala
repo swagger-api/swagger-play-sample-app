@@ -8,7 +8,7 @@ import com.wordnik.swagger.sample.model.Pet
 import scala.Predef._
 
 @Api(value = "/pet", description = "Operations about pets")
-object PetController extends Controller {
+object PetController extends ApiController {
 
   private val petData = new PetData
   private val ru = new JavaRestResourceUtil
@@ -18,7 +18,7 @@ object PetController extends Controller {
   def getPetById(@ApiParam(value = "ID of pet that needs to be fetched", required = true) petId: String) = {
     var pet: Pet = petData.getPetbyId(ru.getLong(0, 100000, 0, petId))
     if (null != pet) {
-      Json(pet)
+      if (returnXml) Xml(marshallToXml(pet)) else Json(pet)
     } else {
       NotFound("Pet not found for " + petId)
     }
@@ -41,14 +41,16 @@ object PetController extends Controller {
   @ApiOperation(value = "Finds Pets by status", notes = "Multiple status values can be provided with comma seperated strings", responseClass = "com.wordnik.swagger.sample.model.Pet", multiValueResponse = true)
   @ApiErrors(value = Array(new ApiError(code = 400, reason = "Invalid status value")))
   def findPetsByStatus(@ApiParam(value = "Status values that need to be considered for filter", required = true, defaultValue = "available", allowableValues = "available,pending,sold", allowMultiple = true) status: String) = {
-    Json(petData.findPetByStatus(status))
+    val o = petData.findPetByStatus(status)
+    if (returnXml) Xml(marshallToXml(o)) else Json(o)
   }
 
   @ApiOperation(value = "Finds Pets by tags", notes = "Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.", responseClass = "com.wordnik.swagger.sample.model.Pet", multiValueResponse = true)
   @ApiErrors(value = Array(new ApiError(code = 400, reason = "Invalid tag value")))
   @Deprecated
   def findPetsByTags(@ApiParam(value = "Tags to filter by", required = true, allowMultiple = true) tags: String) = {
-    Json(petData.findPetByTags(tags))
+    val o = petData.findPetByTags(tags)
+    if (returnXml) Xml(marshallToXml(o)) else Json(o)
   }
 
 }

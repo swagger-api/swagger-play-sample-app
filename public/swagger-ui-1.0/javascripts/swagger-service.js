@@ -1,9 +1,6 @@
-function SwaggerService(baseUrl, _apiKey, statusCallback, useFormatSuffix) {
+function SwaggerService(baseUrl, _apiKey, statusCallback) {
   if (!baseUrl)
-      throw new Error("baseUrl must be passed while creating SwaggerService");
-
-  if(useFormatSuffix === null)
-    useFormatSuffix = true;
+  throw new Error("baseUrl must be passed while creating SwaggerService");
 
   // constants
   baseUrl = jQuery.trim(baseUrl);
@@ -13,18 +10,10 @@ function SwaggerService(baseUrl, _apiKey, statusCallback, useFormatSuffix) {
   if (! (baseUrl.toLowerCase().indexOf("http:") == 0 || baseUrl.toLowerCase().indexOf("https:") == 0)) {
     baseUrl = ("http://" + baseUrl);
   }
-
-  if(useFormatSuffix)
-      baseUrl = baseUrl + "/resources.json";
-//  log("using base url " + baseUrl);
+  baseUrl = baseUrl + "/resources.json";
+  // log("using base url " + baseUrl);
   var apiHost = baseUrl.substr(0, baseUrl.lastIndexOf("/"));
-
-  var rootResourcesApiName = null;
-  if(useFormatSuffix) {
-      rootResourcesApiName = baseUrl.substr(baseUrl.lastIndexOf("/") + 1, (baseUrl.lastIndexOf(".") - baseUrl.lastIndexOf("/") - 1))
-  } else {
-      rootResourcesApiName = baseUrl.substr(baseUrl.lastIndexOf("/") + 1, (baseUrl.length - baseUrl.lastIndexOf("/") - 1))
-  }
+  var rootResourcesApiName = baseUrl.substr(baseUrl.lastIndexOf("/") + 1, (baseUrl.lastIndexOf(".") - baseUrl.lastIndexOf("/") - 1));
   var formatString = ".{format}";
   var statusListener = statusCallback;
   var apiKey = _apiKey;
@@ -72,28 +61,11 @@ function SwaggerService(baseUrl, _apiKey, statusCallback, useFormatSuffix) {
 
     init: function(atts) {
       if (atts) this.load(atts);
-
-      if(useFormatSuffix) {
-          this.path_json = this.path.replace("{format}", "json");
-          this.path_xml = this.path.replace("{format}", "xml");
-      } else {
-          this.path_json = this.path;
-          this.path_xml = "?";
-      }
+      this.path_json = this.path.replace("{format}", "json");
+      this.path_xml = this.path.replace("{format}", "xml");
       this.baseUrl = apiHost;
-
       //execluded 9 letters to remove .{format} from name
-      if(useFormatSuffix) {
-        this.name = this.path.substr(1, this.path.length - formatString.length - 1);
-      } else {
-          this.name = this.path.substr(1, this.path.length - 1);
-          if(this.name.indexOf("/") < this.path.length - 1)
-            this.name = this.name.substr(this.name.indexOf("/") + 1, this.name.length - 1)
-      }
-
-      log(this.path + " = " + this.name)
-
-
+      this.name = this.path.substr(1, this.path.length - formatString.length - 1);
       this.apiList = Api.sub();
       this.modelList = ApiModel.sub();
     },
@@ -124,34 +96,22 @@ function SwaggerService(baseUrl, _apiKey, statusCallback, useFormatSuffix) {
         var prefix = this.path.substr(0, secondPathSeperatorIndex);
         var suffix = this.path.substr(secondPathSeperatorIndex, this.path.length);
         // log(this.path + ":: " + prefix + "..." + suffix);
-
-        if(useFormatSuffix) {
-          this.path_json = this.path.replace("{format}", "json");
-          this.path_xml = this.path.replace("{format}", "xml");
-        } else {
-          this.path_json = this.path;
-          this.path_xml = "?";
-        }
-
+        this.path_json = prefix.replace("{format}", "json") + suffix;
+        this.path_xml = prefix.replace("{format}", "xml") + suffix;;
 
         if (this.path.indexOf("/") == 0) {
-          this.name = this.path.substr(1, secondPathSeperatorIndex - 1);
+          this.name = this.path.substr(1, secondPathSeperatorIndex - formatString.length - 1);
         } else {
-          this.name = this.path.substr(0, secondPathSeperatorIndex - 1);
+          this.name = this.path.substr(0, secondPathSeperatorIndex - formatString.length - 1);
         }
       } else {
-          if(useFormatSuffix) {
-            this.path_json = this.path.replace("{format}", "json");
-            this.path_xml = this.path.replace("{format}", "xml");
-          } else {
-            this.path_json = this.path;
-            this.path_xml = "?";
-          }
+        this.path_json = this.path.replace("{format}", "json");
+        this.path_xml = this.path.replace("{format}", "xml");
 
         if (this.path.indexOf("/") == 0) {
-          this.name = this.path.substr(1, this.path.length  - 1);
+          this.name = this.path.substr(1, this.path.length - formatString.length - 1);
         } else {
-          this.name = this.path.substr(0, this.path.length - 1);
+          this.name = this.path.substr(0, this.path.length - formatString.length - 1);
         }
       }
 
@@ -365,13 +325,7 @@ function SwaggerService(baseUrl, _apiKey, statusCallback, useFormatSuffix) {
       var controller = this;
 
       updateStatus("Fetching API List...");
-      var endpointsUrl = null;
-      if(useFormatSuffix)
-        endpointsUrl = apiHost + "/" + rootResourcesApiName + ".json" + apiKeySuffix
-      else
-        endpointsUrl = apiHost + "/" + rootResourcesApiName + apiKeySuffix
-
-      $.getJSON(endpointsUrl,
+      $.getJSON(apiHost + "/" + rootResourcesApiName + ".json" + apiKeySuffix,
       function(response) {
         //log(response);
         ApiResource.createAll(response.apis);

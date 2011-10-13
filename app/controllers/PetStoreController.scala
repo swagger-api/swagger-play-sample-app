@@ -1,10 +1,11 @@
 package controllers
 
-import play.mvc.Controller
 import com.wordnik.swagger.sample.resource.JavaRestResourceUtil
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.sample.model.Order
 import com.wordnik.swagger.sample.data.StoreData
+import play.mvc.results._
+import scala.Predef._
 
 /**
   * @author ayush
@@ -12,7 +13,7 @@ import com.wordnik.swagger.sample.data.StoreData
   *
   */
 @Api(value = "/store", description = "Operations about store")
-object PetStoreController extends Controller {
+object PetStoreController extends ApiController {
 
   private val storeData = new StoreData
   private val ru = new JavaRestResourceUtil
@@ -22,7 +23,7 @@ object PetStoreController extends Controller {
   def getOrderById(@ApiParam(value = "ID of pet that needs to be fetched", required = true) orderId: String) = {
     val order: Order = storeData.findOrderById(ru.getLong(0, 10000, 0, orderId))
     if (null != order) {
-      Json(order)
+      if (returnXml) Xml(marshallToXml(order)) else Json(order)
     } else {
       NotFound
     }
@@ -41,4 +42,5 @@ object PetStoreController extends Controller {
     storeData.deleteOrder(ru.getLong(0, 10000, 0, orderId))
     Ok
   }
+
 }
