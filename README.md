@@ -47,12 +47,12 @@ If you hit http://localhost:9000 you should see swagger-ui (https://github.com/w
 ### Test API Listing directly
 Open a browser window and confirm you can see API listing by hitting the following URLs
 
-<li>- http://localhost:9000/help : A list of available resources
+<li>- http://localhost:9000/resources.{format} : A list of available resources
 
-<li>- http://localhost:9000/help/user  : User Resource API and Models
+<li>- http://localhost:9000/help/user.{format}  : User Resource API and Models
 
-<li>- http://localhost:9000/help/pet   : Pet Resource API and Models
+<li>- http://localhost:9000/help/pet.{format}   : Pet Resource API and Models
 
-<li>- http://localhost:9000/help/store : Store Resource API and Models
+<li>- http://localhost:9000/help/store.{format} : Store Resource API and Models
 
 
