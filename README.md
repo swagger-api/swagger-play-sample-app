@@ -11,17 +11,24 @@ You need the following installed and available in your $PATH:
 
 <li>- Scala Plugin (play install scala)
 	
+<li>- Swagger Core
+
 <li>- Swagger Play Framework Plugin https://github.com/wordnik/swagger-play
 
 <li>- Scala 2.8.1  (http://www.scala-lang.org)
 
 ### To build
+Clone this fork of swagger-core from https://github.com/ayush/swagger-core and build it using
+<pre>
+ant deploy
+</pre>
+
 Clone swagger-play from https://github.com/wordnik/swagger-play and build it using
 <pre>
 play build-module
 </pre>
 
-In swagger-play-sample-app, edit conf/dependencies.yml and update the line below to point to the swagger-play
+In swagger-play-sample-app, edit conf/dependencies.yml and update the line below to point to your locally cloned swagger-play
 <pre>
 artifact:   "/path/to/swagger-play"
 </pre>
