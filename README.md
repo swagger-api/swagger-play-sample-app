@@ -7,10 +7,10 @@ This is a project to illustrate use of swagger plugin on play-framework.
 ### Prerequisites
 You need the following installed and available in your $PATH:
 
-<li>- Play Framework 1.2.3
+<li>- Play Framework 1.2.4
 
 <li>- Scala Plugin (play install scala)
-	
+
 <li>- Swagger Core pre-release version
 
 <li>- Swagger Play Framework Plugin https://github.com/wordnik/swagger-play
